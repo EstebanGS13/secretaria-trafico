@@ -1,5 +1,11 @@
 package co.edu.utp.isc.db.secretariatrafico.view;
 
+import co.edu.utp.isc.db.secretariatrafico.controller.MultasJpaController;
+import co.edu.utp.isc.db.secretariatrafico.model.Multas;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Esteban
@@ -11,6 +17,9 @@ public class SecretariaTrafico extends javax.swing.JFrame {
      */
     public SecretariaTrafico() {
         initComponents();
+        setLocationRelativeTo(null);
+        crearModelo();
+        cargarInfo();
     }
 
     /**
@@ -22,17 +31,39 @@ public class SecretariaTrafico extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblTable = new javax.swing.JTable();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        tblTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(tblTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 885, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(97, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(54, 54, 54))
         );
 
         pack();
@@ -74,5 +105,70 @@ public class SecretariaTrafico extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblTable;
     // End of variables declaration//GEN-END:variables
+    
+    MultasJpaController controladorMultas = new MultasJpaController();
+    DefaultTableModel modelo2;
+
+    private void crearModelo() {
+        try {
+            modelo2 = (new DefaultTableModel(
+                    null, new String[]{
+                        "id_multa", "fecha_infraccion", "direccion_infraccion",
+                        "id_ciudad", "codigo_infraccion", "id_persona", 
+                        "id_agente", "matricula"}) {
+                Class[] types = new Class[]{
+                    java.lang.String.class,
+                    java.lang.String.class,
+                    java.lang.String.class,
+                    java.lang.String.class,
+                    java.lang.String.class,
+                    java.lang.String.class,
+                    java.lang.String.class,
+                    java.lang.String.class
+                };
+                boolean[] canEdit = new boolean[]{
+                    false, false, false, false, false, false, false, false
+                };
+
+                @Override
+                public Class getColumnClass(int columnIndex) {
+                    return types[columnIndex];
+                }
+
+                @Override
+                public boolean isCellEditable(int rowIndex, int colIndex) {
+                    return canEdit[colIndex];
+                }
+            });
+            tblTable.setModel(modelo2);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.toString() + "error2");
+        }
+    }
+    
+    private void cargarInfo() {
+        try {
+            Object obj[] = null;
+            List<Multas> listaMultas = controladorMultas.findMultasEntities(); //encuentra todas las entidades
+            for (int i = 0; i < listaMultas.size(); i++) {
+                modelo2.addRow(obj);
+                modelo2.setValueAt(listaMultas.get(i).getIdMulta(), i, 0);
+                modelo2.setValueAt(listaMultas.get(i).getFechaInfraccion(), i, 1);
+                modelo2.setValueAt(listaMultas.get(i).getDireccionInfraccion(), i, 2);
+                modelo2.setValueAt(listaMultas.get(i).getIdCiudad().getNombreCiudad(), i, 3);
+                modelo2.setValueAt(listaMultas.get(i).getCodigoInfraccion().getCodigoInfraccion(), i, 4);
+                modelo2.setValueAt(listaMultas.get(i).getIdPersona().getNombrePersona()
+                        + " " + listaMultas.get(i).getIdPersona().getApellidosPersona(), i, 5);
+                modelo2.setValueAt(listaMultas.get(i).getIdAgente().getNombreAgente()
+                        + " " + listaMultas.get(i).getIdAgente().getApellidosAgente(), i, 6);
+                modelo2.setValueAt(listaMultas.get(i).getMatricula().getMatricula(), i, 7);
+                //TODO CAMBIAR ENTITY MANAGER DE LOS CONTROLLERS
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
+    }
 }
