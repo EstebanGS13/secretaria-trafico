@@ -42,7 +42,7 @@ public class SecretariaTrafico extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblTable = new javax.swing.JTable();
+        tblTabla = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         btnSeleccionar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
@@ -65,7 +65,7 @@ public class SecretariaTrafico extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        tblTable.setModel(new javax.swing.table.DefaultTableModel(
+        tblTabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -76,7 +76,7 @@ public class SecretariaTrafico extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(tblTable);
+        jScrollPane1.setViewportView(tblTabla);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("Secretaría de Tráfico");
@@ -84,6 +84,11 @@ public class SecretariaTrafico extends javax.swing.JFrame {
         btnSeleccionar.setText("Seleccionar Registro");
 
         btnEliminar.setText("Eliminar Registro");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Multas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14))); // NOI18N
 
@@ -178,7 +183,7 @@ public class SecretariaTrafico extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 958, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -203,8 +208,8 @@ public class SecretariaTrafico extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSeleccionar)
                     .addComponent(btnEliminar))
@@ -253,14 +258,26 @@ public class SecretariaTrafico extends javax.swing.JFrame {
             au.setMatricula(txtMatricula.getText().trim());
             multa.setMatricula(au);
 
-            controladorMultas.create(multa);
+            controladorMulta.create(multa);
             JOptionPane.showMessageDialog(null, "Registro guardado");
             limpiarCampos();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
-        
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        Multas multa = new Multas();
+        int id = (int) tblTabla.getValueAt(tblTabla.getSelectedRow(), 0);
+        multa.setIdMulta(id);
+        try {
+            controladorMulta.destroy(multa.getIdMulta());
+            JOptionPane.showMessageDialog(null, "Registro eliminado");
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -311,7 +328,7 @@ public class SecretariaTrafico extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblTable;
+    private javax.swing.JTable tblTabla;
     private javax.swing.JTextField txtAgente;
     private javax.swing.JTextField txtCiudad;
     private javax.swing.JTextField txtCodigo;
@@ -321,7 +338,7 @@ public class SecretariaTrafico extends javax.swing.JFrame {
     private javax.swing.JTextField txtPersona;
     // End of variables declaration//GEN-END:variables
     
-    MultasJpaController controladorMultas = new MultasJpaController();
+    MultasJpaController controladorMulta = new MultasJpaController();
     DefaultTableModel modelo2;
 
     private void crearModelo() {
@@ -355,7 +372,7 @@ public class SecretariaTrafico extends javax.swing.JFrame {
                     return canEdit[colIndex];
                 }
             });
-            tblTable.setModel(modelo2);
+            tblTabla.setModel(modelo2);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.toString() + "error2");
         }
@@ -364,7 +381,7 @@ public class SecretariaTrafico extends javax.swing.JFrame {
     private void cargarInfo() {
         try {
             Object obj[] = null;
-            List<Multas> listaMultas = controladorMultas.findMultasEntities(); //encuentra todas las entidades
+            List<Multas> listaMultas = controladorMulta.findMultasEntities(); //encuentra todas las entidades
             for (int i = 0; i < listaMultas.size(); i++) {
                 modelo2.addRow(obj);
                 modelo2.setValueAt(listaMultas.get(i).getIdMulta(), i, 0);
