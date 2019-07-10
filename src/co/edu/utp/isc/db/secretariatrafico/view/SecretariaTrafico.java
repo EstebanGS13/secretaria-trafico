@@ -62,6 +62,7 @@ public class SecretariaTrafico extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         txtMatricula = new javax.swing.JTextField();
         btnGuardar = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,6 +83,11 @@ public class SecretariaTrafico extends javax.swing.JFrame {
         jLabel1.setText("Secretaría de Tráfico");
 
         btnSeleccionar.setText("Seleccionar Registro");
+        btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setText("Eliminar Registro");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -113,6 +119,13 @@ public class SecretariaTrafico extends javax.swing.JFrame {
             }
         });
 
+        btnActualizar.setText("Actualizar Registro");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -135,17 +148,21 @@ public class SecretariaTrafico extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
                             .addComponent(jLabel7)
-                            .addComponent(jLabel8))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtPersona, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
-                            .addComponent(txtAgente)
-                            .addComponent(txtMatricula)))
+                            .addComponent(jLabel8)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 332, Short.MAX_VALUE)
-                        .addComponent(btnGuardar)))
-                .addContainerGap(15, Short.MAX_VALUE))
+                        .addGap(0, 92, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnGuardar)
+                        .addGap(79, 79, 79)
+                        .addComponent(btnActualizar))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(txtPersona, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
+                        .addComponent(txtAgente)
+                        .addComponent(txtMatricula)))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,12 +186,12 @@ public class SecretariaTrafico extends javax.swing.JFrame {
                     .addComponent(jLabel8)
                     .addComponent(txtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel5)
-                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnGuardar))
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGuardar)
+                    .addComponent(btnActualizar))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -220,10 +237,8 @@ public class SecretariaTrafico extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        // TODO add your handling code here:
         try {
             Multas multa = new Multas();
-            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
             Ciudades c = new Ciudades();
             Infracciones i = new Infracciones();
             Personas p = new Personas();
@@ -235,7 +250,7 @@ public class SecretariaTrafico extends javax.swing.JFrame {
             String getFecha = txtFecha.getText().trim();
             Date fecha;
             try {
-                fecha = formato.parse(getFecha);
+                fecha = formatoFecha.parse(getFecha);
                 multa.setFechaInfraccion(fecha);
             } catch (ParseException ex) {
                 Logger.getLogger(SecretariaTrafico.class.getName()).log(Level.SEVERE, null, ex);
@@ -279,6 +294,61 @@ public class SecretariaTrafico extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
+    private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
+        txtFecha.setText(formatoFecha.format((Date) tblTabla.getValueAt(tblTabla.getSelectedRow(), 1)));
+        txtDireccion.setText(tblTabla.getValueAt(tblTabla.getSelectedRow(), 2).toString());
+        txtCiudad.setText(tblTabla.getValueAt(tblTabla.getSelectedRow(), 3).toString());
+        txtCodigo.setText(tblTabla.getValueAt(tblTabla.getSelectedRow(), 4).toString());
+        txtPersona.setText(tblTabla.getValueAt(tblTabla.getSelectedRow(), 5).toString());
+        txtAgente.setText(tblTabla.getValueAt(tblTabla.getSelectedRow(), 6).toString());
+        txtMatricula.setText(tblTabla.getValueAt(tblTabla.getSelectedRow(), 7).toString());
+    }//GEN-LAST:event_btnSeleccionarActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        try {
+            Multas multa = new Multas();
+            Ciudades c = new Ciudades();
+            Infracciones i = new Infracciones();
+            Personas p = new Personas();
+            Agentes a = new Agentes();
+            Autos au = new Autos();
+
+            multa.setIdMulta((Integer) tblTabla.getValueAt(tblTabla.getSelectedRow(), 0));
+
+            String getFecha = txtFecha.getText().trim();
+            Date fecha;
+            try {
+                fecha = formatoFecha.parse(getFecha);
+                multa.setFechaInfraccion(fecha);
+            } catch (ParseException ex) {
+                Logger.getLogger(SecretariaTrafico.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            multa.setDireccionInfraccion(txtDireccion.getText().trim());
+
+            c.setIdCiudad(Integer.parseInt(txtCiudad.getText().trim()));
+            multa.setIdCiudad(c);
+
+            i.setCodigoInfraccion(txtCodigo.getText().trim());
+            multa.setCodigoInfraccion(i);
+
+            p.setIdPersona(Integer.parseInt(txtPersona.getText().trim()));
+            multa.setIdPersona(p);
+
+            a.setIdAgente(Integer.parseInt(txtAgente.getText().trim()));
+            multa.setIdAgente(a);
+
+            au.setMatricula(txtMatricula.getText().trim());
+            multa.setMatricula(au);
+
+            controladorMulta.edit(multa);
+            JOptionPane.showMessageDialog(null, "Registro actualizado");
+            limpiarCampos();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -315,6 +385,7 @@ public class SecretariaTrafico extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnSeleccionar;
@@ -340,6 +411,8 @@ public class SecretariaTrafico extends javax.swing.JFrame {
     
     MultasJpaController controladorMulta = new MultasJpaController();
     DefaultTableModel modelo2;
+    SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+
 
     private void crearModelo() {
         try {
@@ -350,7 +423,7 @@ public class SecretariaTrafico extends javax.swing.JFrame {
                         "id_agente", "matricula"}) {
                 Class[] types = new Class[]{
                     java.lang.String.class,
-                    java.lang.String.class,
+                    java.util.Date.class,
                     java.lang.String.class,
                     java.lang.String.class,
                     java.lang.String.class,
@@ -387,13 +460,17 @@ public class SecretariaTrafico extends javax.swing.JFrame {
                 modelo2.setValueAt(listaMultas.get(i).getIdMulta(), i, 0);
                 modelo2.setValueAt(listaMultas.get(i).getFechaInfraccion(), i, 1);
                 modelo2.setValueAt(listaMultas.get(i).getDireccionInfraccion(), i, 2);
-                modelo2.setValueAt(listaMultas.get(i).getIdCiudad().getNombreCiudad(), i, 3);
+                modelo2.setValueAt(listaMultas.get(i).getIdCiudad().getIdCiudad(), i, 3);
+//                modelo2.setValueAt(listaMultas.get(i).getIdCiudad().getNombreCiudad(), i, 3);
                 modelo2.setValueAt(listaMultas.get(i).getCodigoInfraccion().getCodigoInfraccion(), i, 4);
-                modelo2.setValueAt(listaMultas.get(i).getIdPersona().getNombrePersona()
-                        + " " + listaMultas.get(i).getIdPersona().getApellidosPersona(), i, 5);
-                modelo2.setValueAt(listaMultas.get(i).getIdAgente().getNombreAgente()
-                        + " " + listaMultas.get(i).getIdAgente().getApellidosAgente(), i, 6);
+                modelo2.setValueAt(listaMultas.get(i).getIdPersona().getIdPersona(), i, 5);
+                modelo2.setValueAt(listaMultas.get(i).getIdAgente().getIdAgente(), i, 6);
                 modelo2.setValueAt(listaMultas.get(i).getMatricula().getMatricula(), i, 7);
+//                modelo2.setValueAt(listaMultas.get(i).getIdPersona().getNombrePersona()
+//                        + " " + listaMultas.get(i).getIdPersona().getApellidosPersona(), i, 5);
+//                modelo2.setValueAt(listaMultas.get(i).getIdAgente().getNombreAgente()
+//                        + " " + listaMultas.get(i).getIdAgente().getApellidosAgente(), i, 6);
+//                modelo2.setValueAt(listaMultas.get(i).getMatricula().getMatricula(), i, 7);
                 //TODO CAMBIAR ENTITY MANAGER DE LOS CONTROLLERS
             }
         } catch (Exception e) {
@@ -402,13 +479,12 @@ public class SecretariaTrafico extends javax.swing.JFrame {
     }
 
     private void limpiarCampos() {
-        txtAgente.setText("");
+        txtFecha.setText("");
+        txtDireccion.setText("");
         txtCiudad.setText("");
         txtCodigo.setText("");
-        txtDireccion.setText("");
-        txtFecha.setText("");
-        txtFecha.setText("");
-        txtMatricula.setText("");
         txtPersona.setText("");
+        txtAgente.setText("");
+        txtMatricula.setText("");
     }
 }
