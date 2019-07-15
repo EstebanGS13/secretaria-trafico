@@ -145,7 +145,8 @@ public class Autos implements Serializable {
 
     @Override
     public String toString() {
-        return "co.edu.utp.isc.db.secretariatrafico.model.Autos[ matricula=" + matricula + " ]";
+//        return "co.edu.utp.isc.db.secretariatrafico.model.Autos[ matricula=" + matricula + " ]";
+        return matricula;
     }
 
 }
