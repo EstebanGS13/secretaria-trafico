@@ -1,26 +1,17 @@
 package co.edu.utp.isc.db.secretariatrafico.view;
 
-import co.edu.utp.isc.db.secretariatrafico.controller.MultasJpaController;
-import co.edu.utp.isc.db.secretariatrafico.model.Agentes;
-import co.edu.utp.isc.db.secretariatrafico.model.Autos;
-import co.edu.utp.isc.db.secretariatrafico.model.Ciudades;
-import co.edu.utp.isc.db.secretariatrafico.model.Infracciones;
 import co.edu.utp.isc.db.secretariatrafico.model.Multas;
-import co.edu.utp.isc.db.secretariatrafico.model.Personas;
-import java.text.ParseException;
+import java.awt.CardLayout;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Esteban
  */
-public class SecretariaTraficoFrm extends javax.swing.JFrame {
+public class SecretariaTraficoFrm extends javax.swing.JFrame implements Viewer {
 
     /**
      * Creates new form SecretariaTrafico
@@ -28,8 +19,8 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame {
     public SecretariaTraficoFrm() {
         initComponents();
         setLocationRelativeTo(null);
-        crearModelo();
-        cargarInfo();
+        
+        multasPnl.setViewer(this);
     }
 
     /**
@@ -41,47 +32,68 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblTabla = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
+        pnlPrincipal = new javax.swing.JPanel();
+        lblTitulo = new javax.swing.JLabel();
+        lblEntidad = new javax.swing.JLabel();
+        cmbEntidades = new javax.swing.JComboBox<>();
+        pnlCrud = new javax.swing.JPanel();
+        pnlEntidades = new javax.swing.JPanel();
+        pnlVacio = new javax.swing.JPanel();
+        multasPnl = new co.edu.utp.isc.db.secretariatrafico.view.MultasPnl();
+        pnlTabla = new javax.swing.JPanel();
+        btnTabla = new javax.swing.JButton();
         btnSeleccionar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        txtFecha = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        txtDireccion = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        txtCiudad = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        txtCodigo = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        txtPersona = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        txtAgente = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        txtMatricula = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblTabla = new javax.swing.JTable();
         btnGuardar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
-        btnTabla = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        tblTabla.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
+        lblTitulo.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitulo.setText("Secretaría de Tráfico");
 
+        lblEntidad.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        lblEntidad.setText("Entidad:");
+
+        cmbEntidades.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        cmbEntidades.setMaximumRowCount(12);
+        cmbEntidades.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Agentes", "Autos", "Ciudades", "Concesionarios", "Infracciones", "Marcas", "Modelos", "Multas", "Personas", "Tipos Personas", "Tipos Vehículos" }));
+        cmbEntidades.setSelectedIndex(-1);
+        cmbEntidades.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbEntidadesItemStateChanged(evt);
             }
-        ));
-        jScrollPane1.setViewportView(tblTabla);
+        });
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel1.setText("Secretaría de Tráfico");
+        pnlEntidades.setLayout(new java.awt.CardLayout());
+
+        javax.swing.GroupLayout pnlVacioLayout = new javax.swing.GroupLayout(pnlVacio);
+        pnlVacio.setLayout(pnlVacioLayout);
+        pnlVacioLayout.setHorizontalGroup(
+            pnlVacioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1036, Short.MAX_VALUE)
+        );
+        pnlVacioLayout.setVerticalGroup(
+            pnlVacioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 210, Short.MAX_VALUE)
+        );
+
+        pnlEntidades.add(pnlVacio, "vacio");
+
+        multasPnl.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Multas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14))); // NOI18N
+        pnlEntidades.add(multasPnl, "Multas");
+
+        pnlTabla.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Registros", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14))); // NOI18N
+
+        btnTabla.setText("Actualizar Tabla");
+        btnTabla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTablaActionPerformed(evt);
+            }
+        });
 
         btnSeleccionar.setText("Seleccionar Registro");
         btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
@@ -97,21 +109,46 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame {
             }
         });
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Multas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14))); // NOI18N
+        tblTabla.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
 
-        jLabel2.setText("Fecha infracción:");
+            }
+        ));
+        jScrollPane1.setViewportView(tblTabla);
 
-        jLabel3.setText("Dirección infracción:");
-
-        jLabel4.setText("ID ciudad:");
-
-        jLabel5.setText("Código infracción:");
-
-        jLabel6.setText("ID persona:");
-
-        jLabel7.setText("ID agente:");
-
-        jLabel8.setText("Matrícula:");
+        javax.swing.GroupLayout pnlTablaLayout = new javax.swing.GroupLayout(pnlTabla);
+        pnlTabla.setLayout(pnlTablaLayout);
+        pnlTablaLayout.setHorizontalGroup(
+            pnlTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTablaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlTablaLayout.createSequentialGroup()
+                        .addComponent(btnSeleccionar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1)))
+        );
+        pnlTablaLayout.setVerticalGroup(
+            pnlTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTablaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSeleccionar)
+                    .addComponent(btnEliminar)
+                    .addComponent(btnTabla))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(57, Short.MAX_VALUE))
+        );
 
         btnGuardar.setText("Guardar Registro");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -127,248 +164,168 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtCiudad, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
-                            .addComponent(txtDireccion)
-                            .addComponent(txtFecha))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 92, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnGuardar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
-                        .addComponent(btnActualizar))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtPersona, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
-                        .addComponent(txtAgente)
-                        .addComponent(txtMatricula)))
-                .addContainerGap(20, Short.MAX_VALUE))
+        javax.swing.GroupLayout pnlCrudLayout = new javax.swing.GroupLayout(pnlCrud);
+        pnlCrud.setLayout(pnlCrudLayout);
+        pnlCrudLayout.setHorizontalGroup(
+            pnlCrudLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pnlEntidades, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(pnlCrudLayout.createSequentialGroup()
+                .addComponent(pnlTabla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCrudLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnGuardar)
+                .addGap(73, 73, 73)
+                .addComponent(btnActualizar)
+                .addGap(21, 21, 21))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6)
-                    .addComponent(txtPersona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel7)
-                    .addComponent(txtAgente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8)
-                    .addComponent(txtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        pnlCrudLayout.setVerticalGroup(
+            pnlCrudLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlCrudLayout.createSequentialGroup()
+                .addComponent(pnlEntidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlCrudLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar)
                     .addComponent(btnActualizar))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        btnTabla.setText("Actualizar Tabla");
-        btnTabla.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTablaActionPerformed(evt);
-            }
-        });
+        javax.swing.GroupLayout pnlPrincipalLayout = new javax.swing.GroupLayout(pnlPrincipal);
+        pnlPrincipal.setLayout(pnlPrincipalLayout);
+        pnlPrincipalLayout.setHorizontalGroup(
+            pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlPrincipalLayout.createSequentialGroup()
+                .addGroup(pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlPrincipalLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pnlPrincipalLayout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addComponent(lblEntidad)
+                        .addGap(18, 18, 18)
+                        .addComponent(cmbEntidades, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addComponent(pnlCrud, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        pnlPrincipalLayout.setVerticalGroup(
+            pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlPrincipalLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblTitulo)
+                .addGap(38, 38, 38)
+                .addGroup(pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblEntidad)
+                    .addComponent(cmbEntidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlCrud, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addComponent(btnSeleccionar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(428, 428, 428)
-                .addComponent(btnTabla)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(pnlPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnTabla)
-                .addGap(11, 11, 11)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSeleccionar)
-                    .addComponent(btnEliminar))
-                .addContainerGap())
+            .addComponent(pnlPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        try {
-            Multas multa = new Multas();
-            Ciudades c = new Ciudades();
-            Infracciones i = new Infracciones();
-            Personas p = new Personas();
-            Agentes a = new Agentes();
-            Autos au = new Autos();
-
-            multa.setIdMulta(null);
-
-            String getFecha = txtFecha.getText().trim();
-            Date fecha;
-            try {
-                fecha = formatoFecha.parse(getFecha);
-                multa.setFechaInfraccion(fecha);
-            } catch (ParseException ex) {
-                Logger.getLogger(SecretariaTraficoFrm.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            multa.setDireccionInfraccion(txtDireccion.getText().trim());
-
-            c.setIdCiudad(Integer.parseInt(txtCiudad.getText().trim()));
-            multa.setIdCiudad(c);
-
-            i.setCodigoInfraccion(txtCodigo.getText().trim());
-            multa.setCodigoInfraccion(i);
-
-            p.setIdPersona(Integer.parseInt(txtPersona.getText().trim()));
-            multa.setIdPersona(p);
-
-            a.setIdAgente(Integer.parseInt(txtAgente.getText().trim()));
-            multa.setIdAgente(a);
-
-            au.setMatricula(txtMatricula.getText().trim());
-            multa.setMatricula(au);
-
-            controladorMulta.create(multa);
-            JOptionPane.showMessageDialog(null, "Registro guardado");
-            limpiarCampos();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-    }//GEN-LAST:event_btnGuardarActionPerformed
-
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        Multas multa = new Multas();
-        int id = (int) tblTabla.getValueAt(tblTabla.getSelectedRow(), 0);
-        multa.setIdMulta(id);
-        try {
-            controladorMulta.destroy(multa.getIdMulta());
-            JOptionPane.showMessageDialog(null, "Registro eliminado");
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-    }//GEN-LAST:event_btnEliminarActionPerformed
+    private void btnTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTablaActionPerformed
+        //        tblTabla.repaint();
+//        crearModelo();
+//        cargarInfo();
+        //        tblTabla.invalidate();
+    }//GEN-LAST:event_btnTablaActionPerformed
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-        txtFecha.setText(formatoFecha.format((Date) tblTabla.getValueAt(tblTabla.getSelectedRow(), 1)));
-        txtDireccion.setText(tblTabla.getValueAt(tblTabla.getSelectedRow(), 2).toString());
-        txtCiudad.setText(tblTabla.getValueAt(tblTabla.getSelectedRow(), 3).toString());
-        txtCodigo.setText(tblTabla.getValueAt(tblTabla.getSelectedRow(), 4).toString());
-        txtPersona.setText(tblTabla.getValueAt(tblTabla.getSelectedRow(), 5).toString());
-        txtAgente.setText(tblTabla.getValueAt(tblTabla.getSelectedRow(), 6).toString());
-        txtMatricula.setText(tblTabla.getValueAt(tblTabla.getSelectedRow(), 7).toString());
+        multasPnl.seleccionar(tblTabla);
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
-    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        try {
-            Multas multa = new Multas();
-            Ciudades c = new Ciudades();
-            Infracciones i = new Infracciones();
-            Personas p = new Personas();
-            Agentes a = new Agentes();
-            Autos au = new Autos();
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+//        Multas multa = new Multas();
+//        int id = (int) tblTabla.getValueAt(tblTabla.getSelectedRow(), 0);
+//        multa.setIdMulta(id);
+//        try {
+//            controladorMulta.destroy(multa.getIdMulta());
+//            JOptionPane.showMessageDialog(null, "Registro eliminado");
+//
+//        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(null, e.getMessage());
+//        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
-            multa.setIdMulta((Integer) tblTabla.getValueAt(tblTabla.getSelectedRow(), 0));
-
-            String getFecha = txtFecha.getText().trim();
-            Date fecha;
-            try {
-                fecha = formatoFecha.parse(getFecha);
-                multa.setFechaInfraccion(fecha);
-            } catch (ParseException ex) {
-                Logger.getLogger(SecretariaTraficoFrm.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            multa.setDireccionInfraccion(txtDireccion.getText().trim());
-
-            c.setIdCiudad(Integer.parseInt(txtCiudad.getText().trim()));
-            multa.setIdCiudad(c);
-
-            i.setCodigoInfraccion(txtCodigo.getText().trim());
-            multa.setCodigoInfraccion(i);
-
-            p.setIdPersona(Integer.parseInt(txtPersona.getText().trim()));
-            multa.setIdPersona(p);
-
-            a.setIdAgente(Integer.parseInt(txtAgente.getText().trim()));
-            multa.setIdAgente(a);
-
-            au.setMatricula(txtMatricula.getText().trim());
-            multa.setMatricula(au);
-
-            controladorMulta.edit(multa);
-            JOptionPane.showMessageDialog(null, "Registro actualizado");
-            limpiarCampos();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+    private void cmbEntidadesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbEntidadesItemStateChanged
+        String item = cmbEntidades.getSelectedItem().toString();
+        if (item.equals("Multas")) {
+            cambiarCard(item);
+            panelSeleccionado = multasPnl; //TODO: borrar?
+            modelo = multasPnl.getModelo();
         }
-    }//GEN-LAST:event_btnActualizarActionPerformed
+        tblTabla.setModel(modelo);
+        
+    }//GEN-LAST:event_cmbEntidadesItemStateChanged
 
-    private void btnTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTablaActionPerformed
-//        tblTabla.repaint();
-        crearModelo();
-        cargarInfo();
-//        tblTabla.invalidate();
-    }//GEN-LAST:event_btnTablaActionPerformed
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        if (multasPnl.isVisible()) {
+            System.out.println("yessssss");
+            multasPnl.guardar();
+        } else if (pnlVacio.isVisible()) {
+            System.out.println("vacioooo");
+        }
+        else {System.out.println("no lo es");}
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+//        try {
+//            Multas multa = new Multas();
+//            Ciudades c = new Ciudades();
+//            Infracciones i = new Infracciones();
+//            Personas p = new Personas();
+//            Agentes a = new Agentes();
+//            Autos au = new Autos();
+//
+//            multa.setIdMulta((Integer) tblTabla.getValueAt(tblTabla.getSelectedRow(), 0));
+//
+//            String getFecha = txtFecha.getText().trim();
+//            Date fecha;
+//            try {
+//                fecha = formatoFecha.parse(getFecha);
+//                multa.setFechaInfraccion(fecha);
+//            } catch (ParseException ex) {
+//                Logger.getLogger(SecretariaTraficoFrm.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//
+//            multa.setDireccionInfraccion(txtDireccion.getText().trim());
+//
+//            c.setIdCiudad(Integer.parseInt(txtCiudad.getText().trim()));
+//            multa.setIdCiudad(c);
+//
+//            i.setCodigoInfraccion(txtCodigo.getText().trim());
+//            multa.setCodigoInfraccion(i);
+//
+//            p.setIdPersona(Integer.parseInt(txtPersona.getText().trim()));
+//            multa.setIdPersona(p);
+//
+//            a.setIdAgente(Integer.parseInt(txtAgente.getText().trim()));
+//            multa.setIdAgente(a);
+//
+//            au.setMatricula(txtMatricula.getText().trim());
+//            multa.setMatricula(au);
+//
+//            controladorMulta.edit(multa);
+//            JOptionPane.showMessageDialog(null, "Registro actualizado");
+//            limpiarCampos();
+//        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(null, e.getMessage());
+//        }
+    }//GEN-LAST:event_btnActualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -412,102 +369,50 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnSeleccionar;
     private javax.swing.JButton btnTabla;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JComboBox<String> cmbEntidades;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblEntidad;
+    private javax.swing.JLabel lblTitulo;
+    private co.edu.utp.isc.db.secretariatrafico.view.MultasPnl multasPnl;
+    private javax.swing.JPanel pnlCrud;
+    private javax.swing.JPanel pnlEntidades;
+    private javax.swing.JPanel pnlPrincipal;
+    private javax.swing.JPanel pnlTabla;
+    private javax.swing.JPanel pnlVacio;
     private javax.swing.JTable tblTabla;
-    private javax.swing.JTextField txtAgente;
-    private javax.swing.JTextField txtCiudad;
-    private javax.swing.JTextField txtCodigo;
-    private javax.swing.JTextField txtDireccion;
-    private javax.swing.JTextField txtFecha;
-    private javax.swing.JTextField txtMatricula;
-    private javax.swing.JTextField txtPersona;
     // End of variables declaration//GEN-END:variables
-    
-    MultasJpaController controladorMulta = new MultasJpaController();
-    DefaultTableModel modelo2;
-    SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+    private JPanel panelSeleccionado;
+    private String entidades[];
+    private DefaultTableModel modelo;
+    private SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
 
-
-    private void crearModelo() {
-        try {
-            modelo2 = (new DefaultTableModel(
-                    null, new String[]{
-                        "id_multa", "fecha_infraccion", "direccion_infraccion",
-                        "id_ciudad", "codigo_infraccion", "id_persona", 
-                        "id_agente", "matricula"}) {
-                Class[] types = new Class[]{
-                    java.lang.String.class,
-                    java.util.Date.class,
-                    java.lang.String.class,
-                    java.lang.String.class,
-                    java.lang.String.class,
-                    java.lang.String.class,
-                    java.lang.String.class,
-                    java.lang.String.class
-                };
-                boolean[] canEdit = new boolean[]{
-                    false, false, false, false, false, false, false, false
-                };
-
-                @Override
-                public Class getColumnClass(int columnIndex) {
-                    return types[columnIndex];
-                }
-
-                @Override
-                public boolean isCellEditable(int rowIndex, int colIndex) {
-                    return canEdit[colIndex];
-                }
-            });
-            tblTabla.setModel(modelo2);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.toString() + "error2");
-        }
-    }
-    
-    private void cargarInfo() {
-        try {
-            Object obj[] = null;
-            List<Multas> listaMultas = controladorMulta.findMultasEntities(); //encuentra todas las entidades
-            for (int i = 0; i < listaMultas.size(); i++) {
-                modelo2.addRow(obj);
-                modelo2.setValueAt(listaMultas.get(i).getIdMulta(), i, 0);
-                modelo2.setValueAt(listaMultas.get(i).getFechaInfraccion(), i, 1);
-                modelo2.setValueAt(listaMultas.get(i).getDireccionInfraccion(), i, 2);
-                modelo2.setValueAt(listaMultas.get(i).getIdCiudad().getIdCiudad(), i, 3);
-//                modelo2.setValueAt(listaMultas.get(i).getIdCiudad().getNombreCiudad(), i, 3);
-                modelo2.setValueAt(listaMultas.get(i).getCodigoInfraccion().getCodigoInfraccion(), i, 4);
-                modelo2.setValueAt(listaMultas.get(i).getIdPersona().getIdPersona(), i, 5);
-                modelo2.setValueAt(listaMultas.get(i).getIdAgente().getIdAgente(), i, 6);
-                modelo2.setValueAt(listaMultas.get(i).getMatricula().getMatricula(), i, 7);
-//                modelo2.setValueAt(listaMultas.get(i).getIdPersona().getNombrePersona()
-//                        + " " + listaMultas.get(i).getIdPersona().getApellidosPersona(), i, 5);
-//                modelo2.setValueAt(listaMultas.get(i).getIdAgente().getNombreAgente()
-//                        + " " + listaMultas.get(i).getIdAgente().getApellidosAgente(), i, 6);
-//                modelo2.setValueAt(listaMultas.get(i).getMatricula().getMatricula(), i, 7);
-                //TODO CAMBIAR ENTITY MANAGER DE LOS CONTROLLERS
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, e.getMessage());
-        }
-    }
+//    private void setEntidades() {
+//        this.entidades = new String[] {"Agentes", "Autos", "Ciudades", 
+//            "Concesionarios", "Infracciones", "Marcas", "Modelos", "Multas", 
+//            "Personas", "Tipos Personas", "Tipos Vehiculos"};
+//    }
+//
+//    private void setCmbEntidades() {
+//        cmbEntidades.insertItemAt("", 0);
+//        for (String entidad : entidades) {
+//            cmbEntidades.addItem(entidad);
+//        } 
+//    }
 
     private void limpiarCampos() {
-        txtFecha.setText("");
-        txtDireccion.setText("");
-        txtCiudad.setText("");
-        txtCodigo.setText("");
-        txtPersona.setText("");
-        txtAgente.setText("");
-        txtMatricula.setText("");
+//        txtFecha.setText("");
+//        txtDireccion.setText("");
+//        txtCiudad.setText("");
+//        txtCodigo.setText("");
+//        txtPersona.setText("");
+//        txtAgente.setText("");
+//        txtMatricula.setText("");
     }
+
+    @Override
+    public void cambiarCard(String card) {
+        ((CardLayout) pnlEntidades.getLayout()).show(pnlEntidades, card);
+    }
+
+    
 }
