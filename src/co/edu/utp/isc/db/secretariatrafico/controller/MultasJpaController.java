@@ -16,17 +16,14 @@ import co.edu.utp.isc.db.secretariatrafico.model.Personas;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 
 public class MultasJpaController implements Serializable {
 
-//    public MultasJpaController(EntityManagerFactory emf) {
-//        this.emf = emf;
-//    }
-    public MultasJpaController() {
-        this.emf = Persistence.createEntityManagerFactory("SecretariaTraficoPU");
+    public MultasJpaController(EntityManagerFactory emf) {
+        this.emf = emf;
     }
+    
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
