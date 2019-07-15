@@ -1,5 +1,6 @@
 package co.edu.utp.isc.db.secretariatrafico.view;
 
+import co.edu.utp.isc.db.secretariatrafico.controller.JpaController;
 import co.edu.utp.isc.db.secretariatrafico.model.Multas;
 import java.awt.CardLayout;
 import java.text.SimpleDateFormat;
@@ -19,6 +20,7 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame implements Viewer {
     public SecretariaTraficoFrm() {
         initComponents();
         setLocationRelativeTo(null);
+        JpaController.getInstance();
         
         multasPnl.setViewer(this);
     }
@@ -249,16 +251,16 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame implements Viewer {
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-//        Multas multa = new Multas();
-//        int id = (int) tblTabla.getValueAt(tblTabla.getSelectedRow(), 0);
-//        multa.setIdMulta(id);
-//        try {
+        Multas multa = new Multas();
+        int id = (int) tblTabla.getValueAt(tblTabla.getSelectedRow(), 0);
+        multa.setIdMulta(id);
+        try {
 //            controladorMulta.destroy(multa.getIdMulta());
-//            JOptionPane.showMessageDialog(null, "Registro eliminado");
-//
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(null, e.getMessage());
-//        }
+            JOptionPane.showMessageDialog(null, "Registro eliminado");
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void cmbEntidadesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbEntidadesItemStateChanged
@@ -275,7 +277,7 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame implements Viewer {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         if (multasPnl.isVisible()) {
             System.out.println("yessssss");
-            multasPnl.guardar();
+//            multasPnl.guardar();
         } else if (pnlVacio.isVisible()) {
             System.out.println("vacioooo");
         }
@@ -398,6 +400,9 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame implements Viewer {
 //            cmbEntidades.addItem(entidad);
 //        } 
 //    }
+    
+    
+    
 
     private void limpiarCampos() {
 //        txtFecha.setText("");
