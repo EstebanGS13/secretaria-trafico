@@ -1,11 +1,6 @@
 package co.edu.utp.isc.db.secretariatrafico.view;
 
-import co.edu.utp.isc.db.secretariatrafico.controller.JpaController;
-import co.edu.utp.isc.db.secretariatrafico.model.Multas;
 import java.awt.CardLayout;
-import java.text.SimpleDateFormat;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,7 +15,7 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame implements Viewer {
     public SecretariaTraficoFrm() {
         initComponents();
         setLocationRelativeTo(null);
-        
+        panelSeleccionado = null;
         multasPnl.setViewer(this);
     }
 
@@ -247,19 +242,16 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame implements Viewer {
     }//GEN-LAST:event_btnTablaActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        if (tblTabla.getSelectedRow() != -1) {
+        if ((tblTabla.getSelectedRow() != -1) && (panelSeleccionado != null)) {
             btnActualizar.setEnabled(true);
             btnGuardar.setEnabled(false);
-            if (multasPnl.isVisible()) {
-                multasPnl.seleccionar(tblTabla);
-            }
-            //TODO otros paneles
+            panelSeleccionado.seleccionar(tblTabla);
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        if (multasPnl.isVisible()) {
-            multasPnl.eliminar(tblTabla);
+        if (panelSeleccionado != null) {
+            panelSeleccionado.eliminar(tblTabla);
         }        
     }//GEN-LAST:event_btnEliminarActionPerformed
 
@@ -267,27 +259,22 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame implements Viewer {
         String item = cmbEntidades.getSelectedItem().toString();
         if (item.equals("Multas")) {
             cambiarCard(item);
-            panelSeleccionado = multasPnl; //TODO: borrar?
-            modelo = multasPnl.getModelo();
+            panelSeleccionado = multasPnl;
         }
+        modelo = panelSeleccionado.getModelo();
         tblTabla.setModel(modelo);
-        
     }//GEN-LAST:event_cmbEntidadesItemStateChanged
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        if (multasPnl.isVisible()) {
-            multasPnl.guardar();
-        } else if (pnlVacio.isVisible()) {
-            System.out.println("vacioooo");
+        if (panelSeleccionado != null) {
+            panelSeleccionado.guardar();
         }
-        else {System.out.println("no lo es");}
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        if (multasPnl.isVisible()) {
-            multasPnl.actualizar();
+        if (panelSeleccionado != null) {
+            panelSeleccionado.actualizar();
         }
-        tblTabla.repaint();
         btnGuardar.setEnabled(true);
         btnActualizar.setEnabled(false);
     }//GEN-LAST:event_btnActualizarActionPerformed
@@ -346,15 +333,12 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame implements Viewer {
     private javax.swing.JPanel pnlVacio;
     private javax.swing.JTable tblTabla;
     // End of variables declaration//GEN-END:variables
-    private JPanel panelSeleccionado;
-    private String entidades[];
+    private Crud panelSeleccionado;
     private DefaultTableModel modelo;
-    private SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
 
     @Override
     public void cambiarCard(String card) {
         ((CardLayout) pnlEntidades.getLayout()).show(pnlEntidades, card);
     }
-
     
 }
