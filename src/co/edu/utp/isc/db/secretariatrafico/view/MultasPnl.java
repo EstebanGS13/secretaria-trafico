@@ -226,7 +226,8 @@ public class MultasPnl extends javax.swing.JPanel implements Crud {
     private List<Multas> listaMultas;
     private List<Personas> listaPersonas;
     
-    private void cargarListas() {
+    @Override
+    public void cargarListas() {
         this.listaAgentes = JpaController.getInstance().getAgentesControlador().findAgentesEntities();        
         this.listaAutos = JpaController.getInstance().getAutosControlador().findAutosEntities();
         this.listaCiudades = JpaController.getInstance().getCiudadesControlador().findCiudadesEntities();
@@ -279,7 +280,6 @@ public class MultasPnl extends javax.swing.JPanel implements Crud {
     @Override
     public void cargarRegistros() {
         try {
-            Object obj[] = null;
             for (Agentes agente : listaAgentes) {
                 cmbAgente.addItem(agente.getIdAgente().toString());
             }
@@ -424,6 +424,7 @@ public class MultasPnl extends javax.swing.JPanel implements Crud {
         }
     }
     
+    @Override
     public void recargar() {
         cargarListas();
         cargarRegistros();

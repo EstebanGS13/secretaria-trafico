@@ -9,6 +9,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public interface Crud {
     
+    void cargarListas();
+    
     DefaultTableModel getModelo();
     
     void registrar();
@@ -25,6 +27,6 @@ public interface Crud {
     
     void eliminar(JTable tblTabla);
     
-//    void crearTabla();
+    void recargar();
     
 }
