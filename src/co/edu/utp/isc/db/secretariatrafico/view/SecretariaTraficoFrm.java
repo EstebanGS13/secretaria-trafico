@@ -20,7 +20,6 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame implements Viewer {
     public SecretariaTraficoFrm() {
         initComponents();
         setLocationRelativeTo(null);
-        JpaController.getInstance();
         
         multasPnl.setViewer(this);
     }
@@ -44,7 +43,7 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame implements Viewer {
         multasPnl = new co.edu.utp.isc.db.secretariatrafico.view.MultasPnl();
         pnlTabla = new javax.swing.JPanel();
         btnTabla = new javax.swing.JButton();
-        btnSeleccionar = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTabla = new javax.swing.JTable();
@@ -97,10 +96,10 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame implements Viewer {
             }
         });
 
-        btnSeleccionar.setText("Seleccionar Registro");
-        btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
+        btnEditar.setText("Editar Registro");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSeleccionarActionPerformed(evt);
+                btnEditarActionPerformed(evt);
             }
         });
 
@@ -132,8 +131,8 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame implements Viewer {
                 .addContainerGap()
                 .addGroup(pnlTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlTablaLayout.createSequentialGroup()
-                        .addComponent(btnSeleccionar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(270, 270, 270)
                         .addComponent(btnTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -144,7 +143,7 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame implements Viewer {
             .addGroup(pnlTablaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSeleccionar)
+                    .addComponent(btnEditar)
                     .addComponent(btnEliminar)
                     .addComponent(btnTabla))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -160,6 +159,7 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame implements Viewer {
         });
 
         btnActualizar.setText("Actualizar Registro");
+        btnActualizar.setEnabled(false);
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActualizarActionPerformed(evt);
@@ -246,21 +246,21 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame implements Viewer {
         //        tblTabla.invalidate();
     }//GEN-LAST:event_btnTablaActionPerformed
 
-    private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-        multasPnl.seleccionar(tblTabla);
-    }//GEN-LAST:event_btnSeleccionarActionPerformed
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        if (tblTabla.getSelectedRow() != -1) {
+            btnActualizar.setEnabled(true);
+            btnGuardar.setEnabled(false);
+            if (multasPnl.isVisible()) {
+                multasPnl.seleccionar(tblTabla);
+            }
+            //TODO otros paneles
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        Multas multa = new Multas();
-        int id = (int) tblTabla.getValueAt(tblTabla.getSelectedRow(), 0);
-        multa.setIdMulta(id);
-        try {
-//            controladorMulta.destroy(multa.getIdMulta());
-            JOptionPane.showMessageDialog(null, "Registro eliminado");
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
+        if (multasPnl.isVisible()) {
+            multasPnl.eliminar(tblTabla);
+        }        
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void cmbEntidadesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbEntidadesItemStateChanged
@@ -276,8 +276,7 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame implements Viewer {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         if (multasPnl.isVisible()) {
-            System.out.println("yessssss");
-//            multasPnl.guardar();
+            multasPnl.guardar();
         } else if (pnlVacio.isVisible()) {
             System.out.println("vacioooo");
         }
@@ -285,48 +284,12 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame implements Viewer {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-//        try {
-//            Multas multa = new Multas();
-//            Ciudades c = new Ciudades();
-//            Infracciones i = new Infracciones();
-//            Personas p = new Personas();
-//            Agentes a = new Agentes();
-//            Autos au = new Autos();
-//
-//            multa.setIdMulta((Integer) tblTabla.getValueAt(tblTabla.getSelectedRow(), 0));
-//
-//            String getFecha = txtFecha.getText().trim();
-//            Date fecha;
-//            try {
-//                fecha = formatoFecha.parse(getFecha);
-//                multa.setFechaInfraccion(fecha);
-//            } catch (ParseException ex) {
-//                Logger.getLogger(SecretariaTraficoFrm.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//
-//            multa.setDireccionInfraccion(txtDireccion.getText().trim());
-//
-//            c.setIdCiudad(Integer.parseInt(txtCiudad.getText().trim()));
-//            multa.setIdCiudad(c);
-//
-//            i.setCodigoInfraccion(txtCodigo.getText().trim());
-//            multa.setCodigoInfraccion(i);
-//
-//            p.setIdPersona(Integer.parseInt(txtPersona.getText().trim()));
-//            multa.setIdPersona(p);
-//
-//            a.setIdAgente(Integer.parseInt(txtAgente.getText().trim()));
-//            multa.setIdAgente(a);
-//
-//            au.setMatricula(txtMatricula.getText().trim());
-//            multa.setMatricula(au);
-//
-//            controladorMulta.edit(multa);
-//            JOptionPane.showMessageDialog(null, "Registro actualizado");
-//            limpiarCampos();
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(null, e.getMessage());
-//        }
+        if (multasPnl.isVisible()) {
+            multasPnl.actualizar();
+        }
+        tblTabla.repaint();
+        btnGuardar.setEnabled(true);
+        btnActualizar.setEnabled(false);
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     /**
@@ -367,9 +330,9 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame implements Viewer {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton btnSeleccionar;
     private javax.swing.JButton btnTabla;
     private javax.swing.JComboBox<String> cmbEntidades;
     private javax.swing.JScrollPane jScrollPane1;
@@ -387,32 +350,6 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame implements Viewer {
     private String entidades[];
     private DefaultTableModel modelo;
     private SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-
-//    private void setEntidades() {
-//        this.entidades = new String[] {"Agentes", "Autos", "Ciudades", 
-//            "Concesionarios", "Infracciones", "Marcas", "Modelos", "Multas", 
-//            "Personas", "Tipos Personas", "Tipos Vehiculos"};
-//    }
-//
-//    private void setCmbEntidades() {
-//        cmbEntidades.insertItemAt("", 0);
-//        for (String entidad : entidades) {
-//            cmbEntidades.addItem(entidad);
-//        } 
-//    }
-    
-    
-    
-
-    private void limpiarCampos() {
-//        txtFecha.setText("");
-//        txtDireccion.setText("");
-//        txtCiudad.setText("");
-//        txtCodigo.setText("");
-//        txtPersona.setText("");
-//        txtAgente.setText("");
-//        txtMatricula.setText("");
-    }
 
     @Override
     public void cambiarCard(String card) {

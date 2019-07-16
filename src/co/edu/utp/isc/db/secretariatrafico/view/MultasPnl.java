@@ -27,7 +27,7 @@ public class MultasPnl extends javax.swing.JPanel implements Crud {
         initComponents();
         this.modelo = null;
         this.formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-        this.actualizar();
+        this.cargarListas();
     }
 
     /**
@@ -226,14 +226,13 @@ public class MultasPnl extends javax.swing.JPanel implements Crud {
     private List<Multas> listaMultas;
     private List<Personas> listaPersonas;
     
-    public void actualizar() {
+    private void cargarListas() {
         this.listaAgentes = JpaController.getInstance().getAgentesControlador().findAgentesEntities();        
         this.listaAutos = JpaController.getInstance().getAutosControlador().findAutosEntities();
         this.listaCiudades = JpaController.getInstance().getCiudadesControlador().findCiudadesEntities();
         this.listaInfracciones = JpaController.getInstance().getInfraccionesControlador().findInfraccionesEntities();
         this.listaMultas = JpaController.getInstance().getMultasControlador().findMultasEntities();
         this.listaPersonas = JpaController.getInstance().getPersonasControlador().findPersonasEntities();
-        
     }
 
     @Override
@@ -325,6 +324,38 @@ public class MultasPnl extends javax.swing.JPanel implements Crud {
     }
 
     @Override
+    public void registrar() {
+        String getFecha = txtFecha.getText().trim();
+        Date fecha;
+        try {
+            fecha = formatoFecha.parse(getFecha);
+            multa.setFechaInfraccion(fecha);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+
+        multa.setDireccionInfraccion(txtDireccion.getText().trim());
+
+        for (Ciudades ciudad : listaCiudades) {
+            if (ciudad.getNombreCiudad().equals(cmbCiudad.getSelectedItem().toString())) {
+                multa.setIdCiudad(ciudad);
+            }
+        }
+
+        i.setCodigoInfraccion(cmbInfraccion.getSelectedItem().toString());
+        multa.setCodigoInfraccion(i);
+
+        p.setIdPersona(Integer.parseInt(cmbPersona.getSelectedItem().toString()));
+        multa.setIdPersona(p);
+
+        a.setIdAgente(Integer.parseInt(cmbAgente.getSelectedItem().toString()));
+        multa.setIdAgente(a);
+        
+        au.setMatricula(cmbMatricula.getSelectedItem().toString());
+        multa.setMatricula(au);
+    }
+    
+    @Override
     public void guardar() {
         try {
             if (txtMulta.getText().isEmpty()) {
@@ -332,44 +363,22 @@ public class MultasPnl extends javax.swing.JPanel implements Crud {
             } else {
                 multa.setIdMulta(Integer.parseInt(txtMulta.getText().trim()));
             }
-
-            String getFecha = txtFecha.getText().trim();
-            Date fecha;
-            try {
-                fecha = formatoFecha.parse(getFecha);
-                multa.setFechaInfraccion(fecha);
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, ex.getMessage());
-            }
             
-            multa.setDireccionInfraccion(txtDireccion.getText().trim());
+            registrar();
             
-            for (Ciudades ciudad : listaCiudades) {
-                if (ciudad.getNombreCiudad().equals(cmbCiudad.getSelectedItem().toString())) {
-                    multa.setIdCiudad(ciudad);
-                }
-            }
-            
-            i.setCodigoInfraccion(cmbInfraccion.getSelectedItem().toString());
-            multa.setCodigoInfraccion(i);
-            
-            p.setIdPersona(Integer.parseInt(cmbPersona.getSelectedItem().toString()));
-            multa.setIdPersona(p);
-            
-            a.setIdAgente((Integer) cmbAgente.getSelectedItem());
-            au.setMatricula(cmbMatricula.getSelectedItem().toString());
-            multa.setMatricula(au);
-
             JpaController.getInstance().getMultasControlador().create(multa);
             JOptionPane.showMessageDialog(null, "Registro guardado");
-//            limpiarCampos();
+            limpiarCampos();
+            recargar();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }
 
-
+    @Override
     public void seleccionar(JTable tblTabla) {
+        chkAI.setEnabled(false);
+        txtMulta.setText(tblTabla.getValueAt(tblTabla.getSelectedRow(), 0).toString());
         txtFecha.setText(formatoFecha.format((Date) tblTabla.getValueAt(tblTabla.getSelectedRow(), 1)));
         txtDireccion.setText(tblTabla.getValueAt(tblTabla.getSelectedRow(), 2).toString());
         cmbCiudad.setSelectedItem(tblTabla.getValueAt(tblTabla.getSelectedRow(), 3).toString());
@@ -377,5 +386,51 @@ public class MultasPnl extends javax.swing.JPanel implements Crud {
         cmbPersona.setSelectedItem(tblTabla.getValueAt(tblTabla.getSelectedRow(), 5).toString());
         cmbAgente.setSelectedItem(tblTabla.getValueAt(tblTabla.getSelectedRow(), 6).toString());
         cmbMatricula.setSelectedItem(tblTabla.getValueAt(tblTabla.getSelectedRow(), 7).toString());
+    }
+
+    @Override
+    public void actualizar() {
+        try {
+            multa.setIdMulta(Integer.parseInt(txtMulta.getText().trim()));
+            
+            registrar();
+
+            JpaController.getInstance().getMultasControlador().edit(multa);
+            JOptionPane.showMessageDialog(null, "Registro actualizado");
+            limpiarCampos();
+            recargar();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
+    
+    @Override
+    public void limpiarCampos() {
+        chkAI.setEnabled(true);
+        txtMulta.setText("");
+        txtFecha.setText("");
+        txtDireccion.setText("");
+        cmbAgente.setSelectedIndex(-1);
+        cmbMatricula.setSelectedIndex(-1);
+        cmbCiudad.setSelectedIndex(-1);
+        cmbInfraccion.setSelectedIndex(-1);
+        cmbPersona.setSelectedIndex(-1);
+    }
+
+    @Override
+    public void eliminar(JTable tblTabla) {
+        int id = (int) tblTabla.getValueAt(tblTabla.getSelectedRow(), 0);
+        try {
+            JpaController.getInstance().getMultasControlador().destroy(id);
+            JOptionPane.showMessageDialog(null, "Registro eliminado");
+            recargar();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
+    
+    public void recargar() {
+        cargarListas();
+        cargarRegistros();
     }
 }
