@@ -300,23 +300,18 @@ public class MultasPnl extends javax.swing.JPanel implements Crud {
                 cmbPersona.addItem(persona.getIdPersona().toString());
             }
             cmbPersona.setSelectedIndex(-1);
-            for (int i = 0; i < listaMultas.size(); i++) {
-                modelo.addRow(obj);
-                modelo.setValueAt(listaMultas.get(i).getIdMulta(), i, 0);
-                modelo.setValueAt(listaMultas.get(i).getFechaInfraccion(), i, 1);
-                modelo.setValueAt(listaMultas.get(i).getDireccionInfraccion(), i, 2);
-                modelo.setValueAt(listaMultas.get(i).getIdCiudad().getNombreCiudad(), i, 3);
-//                modelo.setValueAt(listaMultas.get(i).getIdCiudad().getNombreCiudad(), i, 3);
-                modelo.setValueAt(listaMultas.get(i).getCodigoInfraccion().getCodigoInfraccion(), i, 4);
-                modelo.setValueAt(listaMultas.get(i).getIdPersona().getIdPersona(), i, 5);
-                modelo.setValueAt(listaMultas.get(i).getIdAgente().getIdAgente(), i, 6);
-                modelo.setValueAt(listaMultas.get(i).getMatricula(), i, 7);
-//                modelo.setValueAt(listaMultas.get(i).getIdPersona().getNombrePersona()
-//                        + " " + listaMultas.get(i).getIdPersona().getApellidosPersona(), i, 5);
-//                modelo.setValueAt(listaMultas.get(i).getIdAgente().getNombreAgente()
-//                        + " " + listaMultas.get(i).getIdAgente().getApellidosAgente(), i, 6);
-//                modelo.setValueAt(listaMultas.get(i).getMatricula().getMatricula(), i, 7);
-                //TODO CAMBIAR ENTITY MANAGER DE LOS CONTROLLERS
+            modelo.setRowCount(0);
+            for (Multas m : listaMultas) {
+                modelo.addRow(new Object[]{
+                    m.getIdMulta(),
+                    m.getFechaInfraccion(),
+                    m.getDireccionInfraccion(),
+                    m.getIdCiudad().getNombreCiudad(),
+                    m.getCodigoInfraccion().getCodigoInfraccion(),
+                    m.getIdPersona().getIdPersona(),
+                    m.getIdAgente().getIdAgente(),
+                    m.getMatricula()
+                });
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
