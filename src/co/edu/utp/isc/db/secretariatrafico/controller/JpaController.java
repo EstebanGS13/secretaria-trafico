@@ -1,4 +1,5 @@
 
+
 package co.edu.utp.isc.db.secretariatrafico.controller;
 
 import java.io.Serializable;
@@ -9,7 +10,7 @@ import javax.persistence.Persistence;
 public class JpaController implements Serializable {
     
     private static JpaController instance;
-    private EntityManagerFactory emf = null;
+    private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("SecretariaTraficoPU");
     private AgentesJpaController agentesControlador;
     private AutosJpaController autosControlador;
     private CiudadesJpaController ciudadesControlador;
@@ -18,7 +19,6 @@ public class JpaController implements Serializable {
     private PersonasJpaController personasControlador;
 
     public JpaController() {
-        this.emf = Persistence.createEntityManagerFactory("SecretariaTraficoPU");
         this.multasControlador = new MultasJpaController(emf);
         this.agentesControlador = new AgentesJpaController(emf);
         this.autosControlador= new AutosJpaController(emf);
