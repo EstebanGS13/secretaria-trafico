@@ -229,6 +229,8 @@ public class CiudadesPnl extends javax.swing.JPanel implements Crud {
     @Override
     public void limpiarCampos() {
         chkAI.setEnabled(true);
+        chkAI.setSelected(false);
+        txtId.setEnabled(true);
         txtId.setText("");
         txtNombre.setText("");
     }

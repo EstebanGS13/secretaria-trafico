@@ -401,6 +401,8 @@ public class MultasPnl extends javax.swing.JPanel implements Crud {
     @Override
     public void limpiarCampos() {
         chkAI.setEnabled(true);
+        chkAI.setSelected(false);
+        txtMulta.setEnabled(true);
         txtMulta.setText("");
         txtFecha.setText("");
         txtDireccion.setText("");
