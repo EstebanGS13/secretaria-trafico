@@ -16,6 +16,7 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame implements Viewer {
         initComponents();
         setLocationRelativeTo(null);
         panelSeleccionado = null;
+        ciudadesPnl.setViewer(this);
         multasPnl.setViewer(this);
     }
 
@@ -35,6 +36,7 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame implements Viewer {
         pnlCrud = new javax.swing.JPanel();
         pnlEntidades = new javax.swing.JPanel();
         pnlVacio = new javax.swing.JPanel();
+        ciudadesPnl = new co.edu.utp.isc.db.secretariatrafico.view.CiudadesPnl();
         multasPnl = new co.edu.utp.isc.db.secretariatrafico.view.MultasPnl();
         pnlTabla = new javax.swing.JPanel();
         btnTabla = new javax.swing.JButton();
@@ -46,6 +48,7 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame implements Viewer {
         btnActualizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Secretaría de Tráfico");
 
         lblTitulo.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -58,9 +61,9 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame implements Viewer {
         cmbEntidades.setMaximumRowCount(12);
         cmbEntidades.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Agentes", "Autos", "Ciudades", "Concesionarios", "Infracciones", "Marcas", "Modelos", "Multas", "Personas", "Tipos Personas", "Tipos Vehículos" }));
         cmbEntidades.setSelectedIndex(-1);
-        cmbEntidades.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cmbEntidadesItemStateChanged(evt);
+        cmbEntidades.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbEntidadesActionPerformed(evt);
             }
         });
 
@@ -74,12 +77,11 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame implements Viewer {
         );
         pnlVacioLayout.setVerticalGroup(
             pnlVacioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 210, Short.MAX_VALUE)
+            .addGap(0, 222, Short.MAX_VALUE)
         );
 
         pnlEntidades.add(pnlVacio, "vacio");
-
-        multasPnl.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Multas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14))); // NOI18N
+        pnlEntidades.add(ciudadesPnl, "Ciudades");
         pnlEntidades.add(multasPnl, "Multas");
 
         pnlTabla.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Registros", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14))); // NOI18N
@@ -255,16 +257,6 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame implements Viewer {
         }        
     }//GEN-LAST:event_btnEliminarActionPerformed
 
-    private void cmbEntidadesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbEntidadesItemStateChanged
-        String item = cmbEntidades.getSelectedItem().toString();
-        if (item.equals("Multas")) {
-            cambiarCard(item);
-            panelSeleccionado = multasPnl;
-        }
-        modelo = panelSeleccionado.getModelo();
-        tblTabla.setModel(modelo);
-    }//GEN-LAST:event_cmbEntidadesItemStateChanged
-
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         if (panelSeleccionado != null) {
             panelSeleccionado.guardar();
@@ -278,6 +270,21 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame implements Viewer {
         btnGuardar.setEnabled(true);
         btnActualizar.setEnabled(false);
     }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void cmbEntidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEntidadesActionPerformed
+        String item = cmbEntidades.getSelectedItem().toString();
+        if (item.equals("Ciudades")) {
+            cambiarCard(item);
+            panelSeleccionado = ciudadesPnl;
+        } else if (item.equals("Multas")) {
+            cambiarCard(item);
+            panelSeleccionado = multasPnl;
+        }
+        panelSeleccionado.cargarListas();
+        modelo = panelSeleccionado.getModelo();
+        tblTabla.setModel(modelo);
+        panelSeleccionado.cargarRegistros();
+    }//GEN-LAST:event_cmbEntidadesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -321,6 +328,7 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame implements Viewer {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnTabla;
+    private co.edu.utp.isc.db.secretariatrafico.view.CiudadesPnl ciudadesPnl;
     private javax.swing.JComboBox<String> cmbEntidades;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblEntidad;
@@ -335,7 +343,7 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame implements Viewer {
     // End of variables declaration//GEN-END:variables
     private Crud panelSeleccionado;
     private DefaultTableModel modelo;
-
+    
     @Override
     public void cambiarCard(String card) {
         ((CardLayout) pnlEntidades.getLayout()).show(pnlEntidades, card);
