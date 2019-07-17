@@ -16,8 +16,6 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame implements Viewer {
         initComponents();
         setLocationRelativeTo(null);
         panelSeleccionado = null;
-        ciudadesPnl.setViewer(this);
-        multasPnl.setViewer(this);
     }
 
     /**
@@ -35,11 +33,11 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame implements Viewer {
         cmbEntidades = new javax.swing.JComboBox<>();
         pnlCrud = new javax.swing.JPanel();
         pnlEntidades = new javax.swing.JPanel();
-        pnlVacio = new javax.swing.JPanel();
         ciudadesPnl = new co.edu.utp.isc.db.secretariatrafico.view.CiudadesPnl();
         multasPnl = new co.edu.utp.isc.db.secretariatrafico.view.MultasPnl();
+        marcasPnl = new co.edu.utp.isc.db.secretariatrafico.view.MarcasPnl();
+        tiposPersonasPnl = new co.edu.utp.isc.db.secretariatrafico.view.TiposPersonasPnl();
         pnlTabla = new javax.swing.JPanel();
-        btnTabla = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -68,30 +66,12 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame implements Viewer {
         });
 
         pnlEntidades.setLayout(new java.awt.CardLayout());
-
-        javax.swing.GroupLayout pnlVacioLayout = new javax.swing.GroupLayout(pnlVacio);
-        pnlVacio.setLayout(pnlVacioLayout);
-        pnlVacioLayout.setHorizontalGroup(
-            pnlVacioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1036, Short.MAX_VALUE)
-        );
-        pnlVacioLayout.setVerticalGroup(
-            pnlVacioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 222, Short.MAX_VALUE)
-        );
-
-        pnlEntidades.add(pnlVacio, "vacio");
         pnlEntidades.add(ciudadesPnl, "Ciudades");
         pnlEntidades.add(multasPnl, "Multas");
+        pnlEntidades.add(marcasPnl, "Marcas");
+        pnlEntidades.add(tiposPersonasPnl, "Tipos Personas");
 
         pnlTabla.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Registros", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14))); // NOI18N
-
-        btnTabla.setText("Actualizar Tabla");
-        btnTabla.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTablaActionPerformed(evt);
-            }
-        });
 
         btnEditar.setText("Editar Registro");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -129,8 +109,6 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame implements Viewer {
                 .addGroup(pnlTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlTablaLayout.createSequentialGroup()
                         .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(270, 270, 270)
-                        .addComponent(btnTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1)))
@@ -141,8 +119,7 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame implements Viewer {
                 .addContainerGap()
                 .addGroup(pnlTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEditar)
-                    .addComponent(btnEliminar)
-                    .addComponent(btnTabla))
+                    .addComponent(btnEliminar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(57, Short.MAX_VALUE))
@@ -195,29 +172,27 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame implements Viewer {
         pnlPrincipalLayout.setHorizontalGroup(
             pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlPrincipalLayout.createSequentialGroup()
-                .addGroup(pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlPrincipalLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(pnlPrincipalLayout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addComponent(lblEntidad)
-                        .addGap(18, 18, 18)
-                        .addComponent(cmbEntidades, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap()
+                .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addComponent(pnlCrud, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(pnlPrincipalLayout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(lblEntidad)
+                .addGap(18, 18, 18)
+                .addComponent(cmbEntidades, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlPrincipalLayout.setVerticalGroup(
             pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblTitulo)
-                .addGap(38, 38, 38)
+                .addGap(18, 18, 18)
                 .addGroup(pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblEntidad)
                     .addComponent(cmbEntidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(26, 26, 26)
                 .addComponent(pnlCrud, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -235,13 +210,6 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame implements Viewer {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTablaActionPerformed
-        //        tblTabla.repaint();
-//        crearModelo();
-//        cargarInfo();
-        //        tblTabla.invalidate();
-    }//GEN-LAST:event_btnTablaActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         if ((tblTabla.getSelectedRow() != -1) && (panelSeleccionado != null)) {
@@ -273,12 +241,25 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame implements Viewer {
 
     private void cmbEntidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEntidadesActionPerformed
         String item = cmbEntidades.getSelectedItem().toString();
-        if (item.equals("Ciudades")) {
-            cambiarCard(item);
-            panelSeleccionado = ciudadesPnl;
-        } else if (item.equals("Multas")) {
-            cambiarCard(item);
-            panelSeleccionado = multasPnl;
+        switch (item) {
+            case "Ciudades":
+                cambiarCard(item);
+                panelSeleccionado = ciudadesPnl;
+                break;
+            case "Marcas":
+                cambiarCard(item);
+                panelSeleccionado = marcasPnl;
+                break;
+            case "Multas":
+                cambiarCard(item);
+                panelSeleccionado = multasPnl;
+                break;
+            case "Tipos Personas":
+                cambiarCard(item);
+                panelSeleccionado = tiposPersonasPnl;
+                break;
+            default:
+                break;
         }
         panelSeleccionado.cargarListas();
         modelo = panelSeleccionado.getModelo();
@@ -327,19 +308,19 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame implements Viewer {
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton btnTabla;
     private co.edu.utp.isc.db.secretariatrafico.view.CiudadesPnl ciudadesPnl;
     private javax.swing.JComboBox<String> cmbEntidades;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblEntidad;
     private javax.swing.JLabel lblTitulo;
+    private co.edu.utp.isc.db.secretariatrafico.view.MarcasPnl marcasPnl;
     private co.edu.utp.isc.db.secretariatrafico.view.MultasPnl multasPnl;
     private javax.swing.JPanel pnlCrud;
     private javax.swing.JPanel pnlEntidades;
     private javax.swing.JPanel pnlPrincipal;
     private javax.swing.JPanel pnlTabla;
-    private javax.swing.JPanel pnlVacio;
     private javax.swing.JTable tblTabla;
+    private co.edu.utp.isc.db.secretariatrafico.view.TiposPersonasPnl tiposPersonasPnl;
     // End of variables declaration//GEN-END:variables
     private Crud panelSeleccionado;
     private DefaultTableModel modelo;
