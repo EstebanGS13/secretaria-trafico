@@ -144,7 +144,7 @@ public class MarcasPnl extends javax.swing.JPanel implements Crud {
                     }
                 });
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e.toString() + "error2");
+                JOptionPane.showMessageDialog(null, e.getMessage());
             }
         }
         return modelo;
