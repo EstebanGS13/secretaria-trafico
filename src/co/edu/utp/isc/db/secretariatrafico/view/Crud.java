@@ -12,10 +12,10 @@ public interface Crud {
     void cargarListas();
     
     DefaultTableModel getModelo();
+        
+    void cargarRegistros();
     
     void registrar();
-    
-    void cargarRegistros();
     
     void guardar();
     

@@ -27,7 +27,6 @@ public class MultasPnl extends javax.swing.JPanel implements Crud {
         initComponents();
         this.modelo = null;
         this.formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-        this.cargarListas();
     }
 
     /**
@@ -59,6 +58,7 @@ public class MultasPnl extends javax.swing.JPanel implements Crud {
         cmbAgente = new javax.swing.JComboBox<>();
         cmbPersona = new javax.swing.JComboBox<>();
 
+        setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Multas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14))); // NOI18N
         setPreferredSize(new java.awt.Dimension(1024, 210));
 
         jLabel9.setText("Fecha infracción:");
@@ -112,9 +112,9 @@ public class MultasPnl extends javax.swing.JPanel implements Crud {
                     .addComponent(txtDireccion, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cmbCiudad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtMulta))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -131,7 +131,7 @@ public class MultasPnl extends javax.swing.JPanel implements Crud {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(28, Short.MAX_VALUE)
+                .addContainerGap(15, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -172,7 +172,7 @@ public class MultasPnl extends javax.swing.JPanel implements Crud {
                                     .addComponent(jLabel15)
                                     .addComponent(cmbMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(3, 3, 3)))))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -273,7 +273,6 @@ public class MultasPnl extends javax.swing.JPanel implements Crud {
                 JOptionPane.showMessageDialog(null, e.toString() + "error2");
             }
         }
-        cargarRegistros();
         return modelo;
     }
      
