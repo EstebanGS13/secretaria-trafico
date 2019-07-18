@@ -7,7 +7,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Esteban
  */
-public class SecretariaTraficoFrm extends javax.swing.JFrame implements Viewer {
+public class SecretariaTraficoFrm extends javax.swing.JFrame {
 
     /**
      * Creates new form SecretariaTrafico
@@ -37,6 +37,14 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame implements Viewer {
         multasPnl = new co.edu.utp.isc.db.secretariatrafico.view.MultasPnl();
         marcasPnl = new co.edu.utp.isc.db.secretariatrafico.view.MarcasPnl();
         tiposPersonasPnl = new co.edu.utp.isc.db.secretariatrafico.view.TiposPersonasPnl();
+        tiposVehiculosPnl = new co.edu.utp.isc.db.secretariatrafico.view.TiposVehiculosPnl();
+        modelosPnl = new co.edu.utp.isc.db.secretariatrafico.view.ModelosPnl();
+        infraccionesPnl = new co.edu.utp.isc.db.secretariatrafico.view.InfraccionesPnl();
+        agentesPnl = new co.edu.utp.isc.db.secretariatrafico.view.AgentesPnl();
+        autosPnl = new co.edu.utp.isc.db.secretariatrafico.view.AutosPnl();
+        concesionariosPnl = new co.edu.utp.isc.db.secretariatrafico.view.ConcesionariosPnl();
+        personasPnl = new co.edu.utp.isc.db.secretariatrafico.view.PersonasPnl();
+        vacioPnl = new javax.swing.JPanel();
         pnlTabla = new javax.swing.JPanel();
         btnEditar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
@@ -70,6 +78,26 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame implements Viewer {
         pnlEntidades.add(multasPnl, "Multas");
         pnlEntidades.add(marcasPnl, "Marcas");
         pnlEntidades.add(tiposPersonasPnl, "Tipos Personas");
+        pnlEntidades.add(tiposVehiculosPnl, "Tipos Vehículos");
+        pnlEntidades.add(modelosPnl, "Modelos");
+        pnlEntidades.add(infraccionesPnl, "Infracciones");
+        pnlEntidades.add(agentesPnl, "Agentes");
+        pnlEntidades.add(autosPnl, "Autos");
+        pnlEntidades.add(concesionariosPnl, "Concesionarios");
+        pnlEntidades.add(personasPnl, "Personas");
+
+        javax.swing.GroupLayout vacioPnlLayout = new javax.swing.GroupLayout(vacioPnl);
+        vacioPnl.setLayout(vacioPnlLayout);
+        vacioPnlLayout.setHorizontalGroup(
+            vacioPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1024, Short.MAX_VALUE)
+        );
+        vacioPnlLayout.setVerticalGroup(
+            vacioPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 210, Short.MAX_VALUE)
+        );
+
+        pnlEntidades.add(vacioPnl, "Vacio");
 
         pnlTabla.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Registros", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14))); // NOI18N
 
@@ -242,21 +270,49 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame implements Viewer {
     private void cmbEntidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEntidadesActionPerformed
         String item = cmbEntidades.getSelectedItem().toString();
         switch (item) {
+            case "Agentes":
+                cambiarCard(item);
+                panelSeleccionado = agentesPnl;
+                break;
+            case "Autos":
+                cambiarCard(item);
+                panelSeleccionado = autosPnl;
+                break;
             case "Ciudades":
                 cambiarCard(item);
                 panelSeleccionado = ciudadesPnl;
+                break;
+            case "Concesionarios":
+                cambiarCard(item);
+                panelSeleccionado = concesionariosPnl;
+                break;
+            case "Infracciones":
+                cambiarCard(item);
+                panelSeleccionado = infraccionesPnl;
                 break;
             case "Marcas":
                 cambiarCard(item);
                 panelSeleccionado = marcasPnl;
                 break;
+            case "Modelos":
+                cambiarCard(item);
+                panelSeleccionado = modelosPnl;
+                break;
             case "Multas":
                 cambiarCard(item);
                 panelSeleccionado = multasPnl;
                 break;
+            case "Personas":
+                cambiarCard(item);
+                panelSeleccionado = personasPnl;
+                break;
             case "Tipos Personas":
                 cambiarCard(item);
                 panelSeleccionado = tiposPersonasPnl;
+                break;
+            case "Tipos Vehículos":
+                cambiarCard(item);
+                panelSeleccionado = tiposVehiculosPnl;
                 break;
             default:
                 break;
@@ -304,28 +360,35 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame implements Viewer {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private co.edu.utp.isc.db.secretariatrafico.view.AgentesPnl agentesPnl;
+    private co.edu.utp.isc.db.secretariatrafico.view.AutosPnl autosPnl;
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private co.edu.utp.isc.db.secretariatrafico.view.CiudadesPnl ciudadesPnl;
     private javax.swing.JComboBox<String> cmbEntidades;
+    private co.edu.utp.isc.db.secretariatrafico.view.ConcesionariosPnl concesionariosPnl;
+    private co.edu.utp.isc.db.secretariatrafico.view.InfraccionesPnl infraccionesPnl;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblEntidad;
     private javax.swing.JLabel lblTitulo;
     private co.edu.utp.isc.db.secretariatrafico.view.MarcasPnl marcasPnl;
+    private co.edu.utp.isc.db.secretariatrafico.view.ModelosPnl modelosPnl;
     private co.edu.utp.isc.db.secretariatrafico.view.MultasPnl multasPnl;
+    private co.edu.utp.isc.db.secretariatrafico.view.PersonasPnl personasPnl;
     private javax.swing.JPanel pnlCrud;
     private javax.swing.JPanel pnlEntidades;
     private javax.swing.JPanel pnlPrincipal;
     private javax.swing.JPanel pnlTabla;
     private javax.swing.JTable tblTabla;
     private co.edu.utp.isc.db.secretariatrafico.view.TiposPersonasPnl tiposPersonasPnl;
+    private co.edu.utp.isc.db.secretariatrafico.view.TiposVehiculosPnl tiposVehiculosPnl;
+    private javax.swing.JPanel vacioPnl;
     // End of variables declaration//GEN-END:variables
     private Crud panelSeleccionado;
     private DefaultTableModel modelo;
     
-    @Override
     public void cambiarCard(String card) {
         ((CardLayout) pnlEntidades.getLayout()).show(pnlEntidades, card);
     }

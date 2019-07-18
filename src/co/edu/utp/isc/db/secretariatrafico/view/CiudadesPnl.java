@@ -107,9 +107,6 @@ public class CiudadesPnl extends javax.swing.JPanel implements Crud {
         }
     }//GEN-LAST:event_chkAIActionPerformed
 
-    public void setViewer(Viewer viewer) {
-        this.viewer = viewer;
-    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox chkAI;
@@ -120,7 +117,6 @@ public class CiudadesPnl extends javax.swing.JPanel implements Crud {
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
-    private Viewer viewer;
     private DefaultTableModel modelo;
     private Ciudades ciudad = new Ciudades();
     private List<Ciudades> listaCiudades;

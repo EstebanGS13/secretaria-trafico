@@ -185,9 +185,6 @@ public class MultasPnl extends javax.swing.JPanel implements Crud {
         }
     }//GEN-LAST:event_chkAIActionPerformed
 
-    public void setViewer(Viewer viewer) {
-        this.viewer = viewer;
-    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox chkAI;
@@ -210,7 +207,6 @@ public class MultasPnl extends javax.swing.JPanel implements Crud {
     private javax.swing.JTextField txtFecha;
     private javax.swing.JTextField txtMulta;
     // End of variables declaration//GEN-END:variables
-    private Viewer viewer;
     private DefaultTableModel modelo = null;
     private final SimpleDateFormat formatoFecha;
     private Agentes a = new Agentes();
