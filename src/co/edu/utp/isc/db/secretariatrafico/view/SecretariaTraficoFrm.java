@@ -44,6 +44,7 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame {
         cmbEntidades = new javax.swing.JComboBox<>();
         pnlCrud = new javax.swing.JPanel();
         pnlEntidades = new javax.swing.JPanel();
+        pnlVacio = new javax.swing.JPanel();
         ciudadesPnl = new co.edu.utp.isc.db.secretariatrafico.view.CiudadesPnl();
         multasPnl = new co.edu.utp.isc.db.secretariatrafico.view.MultasPnl();
         marcasPnl = new co.edu.utp.isc.db.secretariatrafico.view.MarcasPnl();
@@ -85,6 +86,19 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame {
         });
 
         pnlEntidades.setLayout(new java.awt.CardLayout());
+
+        javax.swing.GroupLayout pnlVacioLayout = new javax.swing.GroupLayout(pnlVacio);
+        pnlVacio.setLayout(pnlVacioLayout);
+        pnlVacioLayout.setHorizontalGroup(
+            pnlVacioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1024, Short.MAX_VALUE)
+        );
+        pnlVacioLayout.setVerticalGroup(
+            pnlVacioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 210, Short.MAX_VALUE)
+        );
+
+        pnlEntidades.add(pnlVacio, "Vacio");
         pnlEntidades.add(ciudadesPnl, "Ciudades");
         pnlEntidades.add(multasPnl, "Multas");
         pnlEntidades.add(marcasPnl, "Marcas");
@@ -394,6 +408,7 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame {
     private javax.swing.JPanel pnlEntidades;
     private javax.swing.JPanel pnlPrincipal;
     private javax.swing.JPanel pnlTabla;
+    private javax.swing.JPanel pnlVacio;
     private javax.swing.JTable tblTabla;
     private co.edu.utp.isc.db.secretariatrafico.view.TiposPersonasPnl tiposPersonasPnl;
     private co.edu.utp.isc.db.secretariatrafico.view.TiposVehiculosPnl tiposVehiculosPnl;
