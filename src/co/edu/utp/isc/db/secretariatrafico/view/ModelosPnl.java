@@ -200,10 +200,12 @@ public class ModelosPnl extends javax.swing.JPanel implements Crud {
     @Override
     public void cargarRegistros() {
         try {
+            cmbMarca.removeAllItems();
             for (Marcas marca : listaMarcas) {
                 cmbMarca.addItem(marca.getNombreMarca());
             }
             cmbMarca.setSelectedIndex(-1);
+            
             for (Modelos md : listaModelos) {
                 modelo.addRow(new Object[]{
                     md.getIdModelo(),

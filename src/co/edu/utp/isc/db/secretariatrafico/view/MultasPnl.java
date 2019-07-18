@@ -275,26 +275,36 @@ public class MultasPnl extends javax.swing.JPanel implements Crud {
     @Override
     public void cargarRegistros() {
         try {
+            cmbAgente.removeAllItems();
             for (Agentes agente : listaAgentes) {
                 cmbAgente.addItem(agente.getIdAgente().toString());
             }
             cmbAgente.setSelectedIndex(-1);
+            
+            cmbMatricula.removeAllItems();
             for (Autos auto : listaAutos) {
                 cmbMatricula.addItem(auto.getMatricula());
             }
             cmbMatricula.setSelectedIndex(-1);
+            
+            cmbCiudad.removeAllItems();
             for (Ciudades ciudad : listaCiudades) {
                 cmbCiudad.addItem(ciudad.getNombreCiudad());
             }
             cmbCiudad.setSelectedIndex(-1);
+            
+            cmbInfraccion.removeAllItems();
             for (Infracciones infraccion : listaInfracciones) {
                 cmbInfraccion.addItem(infraccion.getCodigoInfraccion());
             }
             cmbInfraccion.setSelectedIndex(-1);
+            
+            cmbPersona.removeAllItems();
             for (Personas persona : listaPersonas) {
                 cmbPersona.addItem(persona.getIdPersona().toString());
             }
             cmbPersona.setSelectedIndex(-1);
+            
             modelo.setRowCount(0);
             for (Multas m : listaMultas) {
                 modelo.addRow(new Object[]{

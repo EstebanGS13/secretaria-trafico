@@ -264,14 +264,18 @@ public class PersonasPnl extends javax.swing.JPanel implements Crud {
     @Override
     public void cargarRegistros() {
         try {
+            cmbCiudad.removeAllItems();
             for (Ciudades ciudad : listaCiudades) {
                 cmbCiudad.addItem(ciudad.getNombreCiudad());
             }
             cmbCiudad.setSelectedIndex(-1);
+            
+            cmbTipoPersona.removeAllItems();
             for (TiposPersonas tipoVehiculo : listaTiposPersonas) {
                 cmbTipoPersona.addItem(tipoVehiculo.getNombreTipoPersona());
             }
             cmbTipoPersona.setSelectedIndex(-1);
+            
             modelo.setRowCount(0);
             for (Personas p : listaPersonas) {
                 modelo.addRow(new Object[]{

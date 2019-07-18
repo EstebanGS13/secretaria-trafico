@@ -222,22 +222,30 @@ public class AutosPnl extends javax.swing.JPanel implements Crud {
     @Override
     public void cargarRegistros() {
         try {
+            cmbConcesionario.removeAllItems();
             for (Concesionarios concesionario : listaConcesionarios) {
-                cmbConcesionario.addItem(concesionario.getIdConcesionario().toString());
+                cmbConcesionario.addItem(concesionario.getNombreConcesionario());
             }
             cmbConcesionario.setSelectedIndex(-1);
+            
+            cmbModelo.removeAllItems();
             for (Modelos modelo : listaModelos) {
                 cmbModelo.addItem(modelo.getNombreModelo());
             }
             cmbModelo.setSelectedIndex(-1);
+            
+            cmbPersona.removeAllItems();
             for (Personas persona : listaPersonas) {
                 cmbPersona.addItem(persona.getIdPersona().toString());
             }
             cmbPersona.setSelectedIndex(-1);
+            
+            cmbTipoVehiculo.removeAllItems();
             for (TiposVehiculos tipoVehiculo : listaTiposVehiculos) {
                 cmbTipoVehiculo.addItem(tipoVehiculo.getNombreTipoVehiculo());
             }
             cmbTipoVehiculo.setSelectedIndex(-1);
+            
             modelo.setRowCount(0);
             for (Autos a : listaAutos) {
                 modelo.addRow(new Object[]{
@@ -263,6 +271,12 @@ public class AutosPnl extends javax.swing.JPanel implements Crud {
         
         c.setIdConcesionario(Integer.parseInt(cmbConcesionario.getSelectedItem().toString()));
         auto.setIdConcesionario(c);
+        
+        for (Concesionarios concesionario : listaConcesionarios) {
+            if (concesionario.getNombreConcesionario().equals(cmbConcesionario.getSelectedItem().toString())) {
+                auto.setIdConcesionario(concesionario);
+            }
+        }
         
         for (TiposVehiculos tipo : listaTiposVehiculos) {
             if (tipo.getNombreTipoVehiculo().equals(cmbTipoVehiculo.getSelectedItem().toString())) {

@@ -232,14 +232,18 @@ public class ConcesionariosPnl extends javax.swing.JPanel implements Crud {
     @Override
     public void cargarRegistros() {
         try {
+            cmbCiudad.removeAllItems();
             for (Ciudades ciudad : listaCiudades) {
                 cmbCiudad.addItem(ciudad.getNombreCiudad());
             }
             cmbCiudad.setSelectedIndex(-1);
+            
+            cmbMarca.removeAllItems();
             for (Marcas marca : listaMarcas) {
                 cmbMarca.addItem(marca.getNombreMarca());
             }
             cmbMarca.setSelectedIndex(-1);
+            
             modelo.setRowCount(0);
             for (Concesionarios co : listaConcesionarios) {
                 modelo.addRow(new Object[]{
