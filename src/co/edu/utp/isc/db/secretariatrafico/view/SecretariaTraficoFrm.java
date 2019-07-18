@@ -16,6 +16,17 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         panelSeleccionado = null;
+        agentesPnl.cargarListas();
+        autosPnl.cargarListas();
+        ciudadesPnl.cargarListas();
+        concesionariosPnl.cargarListas();
+        infraccionesPnl.cargarListas();
+        marcasPnl.cargarListas();
+        modelosPnl.cargarListas();
+        multasPnl.cargarListas();
+        personasPnl.cargarListas();
+        tiposPersonasPnl.cargarListas();
+        tiposVehiculosPnl.cargarListas();
     }
 
     /**
@@ -269,53 +280,55 @@ public class SecretariaTraficoFrm extends javax.swing.JFrame {
 
     private void cmbEntidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEntidadesActionPerformed
         String item = cmbEntidades.getSelectedItem().toString();
-        switch (item) {
-            case "Agentes":
-                cambiarCard(item);
-                panelSeleccionado = agentesPnl;
-                break;
-            case "Autos":
-                cambiarCard(item);
-                panelSeleccionado = autosPnl;
-                break;
-            case "Ciudades":
-                cambiarCard(item);
-                panelSeleccionado = ciudadesPnl;
-                break;
-            case "Concesionarios":
-                cambiarCard(item);
-                panelSeleccionado = concesionariosPnl;
-                break;
-            case "Infracciones":
-                cambiarCard(item);
-                panelSeleccionado = infraccionesPnl;
-                break;
-            case "Marcas":
-                cambiarCard(item);
-                panelSeleccionado = marcasPnl;
-                break;
-            case "Modelos":
-                cambiarCard(item);
-                panelSeleccionado = modelosPnl;
-                break;
-            case "Multas":
-                cambiarCard(item);
-                panelSeleccionado = multasPnl;
-                break;
-            case "Personas":
-                cambiarCard(item);
-                panelSeleccionado = personasPnl;
-                break;
-            case "Tipos Personas":
-                cambiarCard(item);
-                panelSeleccionado = tiposPersonasPnl;
-                break;
-            case "Tipos Vehículos":
-                cambiarCard(item);
-                panelSeleccionado = tiposVehiculosPnl;
-                break;
-            default:
-                break;
+        if (item != null) {
+            switch (item) {
+                case "Agentes":
+                    cambiarCard(item);
+                    panelSeleccionado = agentesPnl;
+                    break;
+                case "Autos":
+                    cambiarCard(item);
+                    panelSeleccionado = autosPnl;
+                    break;
+                case "Ciudades":
+                    cambiarCard(item);
+                    panelSeleccionado = ciudadesPnl;
+                    break;
+                case "Concesionarios":
+                    cambiarCard(item);
+                    panelSeleccionado = concesionariosPnl;
+                    break;
+                case "Infracciones":
+                    cambiarCard(item);
+                    panelSeleccionado = infraccionesPnl;
+                    break;
+                case "Marcas":
+                    cambiarCard(item);
+                    panelSeleccionado = marcasPnl;
+                    break;
+                case "Modelos":
+                    cambiarCard(item);
+                    panelSeleccionado = modelosPnl;
+                    break;
+                case "Multas":
+                    cambiarCard(item);
+                    panelSeleccionado = multasPnl;
+                    break;
+                case "Personas":
+                    cambiarCard(item);
+                    panelSeleccionado = personasPnl;
+                    break;
+                case "Tipos Personas":
+                    cambiarCard(item);
+                    panelSeleccionado = tiposPersonasPnl;
+                    break;
+                case "Tipos Vehículos":
+                    cambiarCard(item);
+                    panelSeleccionado = tiposVehiculosPnl;
+                    break;
+                default:
+                    break;
+            }
         }
         panelSeleccionado.cargarListas();
         modelo = panelSeleccionado.getModelo();

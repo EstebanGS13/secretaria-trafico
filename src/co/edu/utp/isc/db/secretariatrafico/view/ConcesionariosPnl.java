@@ -56,7 +56,7 @@ public class ConcesionariosPnl extends javax.swing.JPanel implements Crud {
 
         jLabel11.setText("Ciudad:");
 
-        jLabel1.setText("ID multa:");
+        jLabel1.setText("ID concesionario:");
 
         chkAI.setPreferredSize(new java.awt.Dimension(24, 26));
         chkAI.addActionListener(new java.awt.event.ActionListener() {
@@ -96,9 +96,9 @@ public class ConcesionariosPnl extends javax.swing.JPanel implements Crud {
                     .addComponent(txtDireccion, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cmbCiudad, 0, 343, Short.MAX_VALUE)
                     .addComponent(txtId))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)

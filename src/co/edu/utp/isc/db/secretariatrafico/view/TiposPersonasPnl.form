@@ -38,11 +38,11 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="chkAI" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                  <Component id="txtId" pref="341" max="32767" attributes="0"/>
+                  <Component id="txtId" pref="325" max="32767" attributes="0"/>
                   <EmptySpace min="119" pref="119" max="-2" attributes="0"/>
                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="txtNombre" pref="342" max="32767" attributes="0"/>
+                  <Component id="txtNombre" pref="325" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -73,7 +73,7 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="ID ciudad:"/>
+        <Property name="text" type="java.lang.String" value="ID tipo persona:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">

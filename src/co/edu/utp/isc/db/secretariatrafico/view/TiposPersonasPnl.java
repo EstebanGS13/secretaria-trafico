@@ -39,7 +39,7 @@ public class TiposPersonasPnl extends javax.swing.JPanel implements Crud {
         setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tipos de Personas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14))); // NOI18N
         setPreferredSize(new java.awt.Dimension(1024, 210));
 
-        jLabel1.setText("ID ciudad:");
+        jLabel1.setText("ID tipo persona:");
 
         jLabel2.setText("AI");
 
@@ -66,11 +66,11 @@ public class TiposPersonasPnl extends javax.swing.JPanel implements Crud {
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addComponent(chkAI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(14, 14, 14)
-                    .addComponent(txtId, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
+                    .addComponent(txtId, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
                     .addGap(119, 119, 119)
                     .addComponent(jLabel3)
                     .addGap(18, 18, 18)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         layout.setVerticalGroup(

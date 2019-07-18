@@ -2,6 +2,7 @@ package co.edu.utp.isc.db.secretariatrafico.view;
 
 import co.edu.utp.isc.db.secretariatrafico.controller.JpaController;
 import co.edu.utp.isc.db.secretariatrafico.model.Agentes;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -18,6 +19,8 @@ public class AgentesPnl extends javax.swing.JPanel implements Crud {
      */
     public AgentesPnl() {
         initComponents();
+        this.agente = new Agentes();
+        this.listaAgentes = new ArrayList<>();
     }
 
     /**
@@ -49,7 +52,7 @@ public class AgentesPnl extends javax.swing.JPanel implements Crud {
             }
         });
 
-        jLabel1.setText("ID ciudad:");
+        jLabel1.setText("ID agente:");
 
         jLabel2.setText("AI");
 
@@ -81,7 +84,7 @@ public class AgentesPnl extends javax.swing.JPanel implements Crud {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtApellidos)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)))
+                    .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,7 +136,7 @@ public class AgentesPnl extends javax.swing.JPanel implements Crud {
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
     private DefaultTableModel modelo;
-    private Agentes agente = new Agentes();
+    private final Agentes agente;
     private List<Agentes> listaAgentes;
     
     @Override
